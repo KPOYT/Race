@@ -15,8 +15,6 @@ class Generator {
 
 		void generate();
 		void checkCars(const int);
-		void addCar();
-		void removeCar(const int index);
 		void levelUp();
 
 		void setUserCar(UserCar*);
@@ -25,6 +23,8 @@ class Generator {
 			const int endX,
 			const int endY);
 	private:
+		void addCar();
+		void removeCar(const int index);
 		bool checkAccident(COORD);
 		bool checkPlace(COORD);
 		COORD randomPlace();
