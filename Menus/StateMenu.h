@@ -8,7 +8,8 @@ class StateMenu : public Menu {
 		StateMenu();
 
 		const int show(
-			const int score);
+			const int,
+			const int);
 	protected:
 		OSConfig* config;
 };

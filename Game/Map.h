@@ -6,6 +6,11 @@
 #include "..\ApplicationOS\OS.h"
 #endif
 
+#ifndef TIMERPANEL_H
+#define TIMERPANEL_H
+#include "..\Panels\TimerPanel.h"
+#endif
+
 #ifndef STATEMENU_H
 #define STATEMENU_H
 #include "..\Menus\StateMenu.h"
@@ -53,9 +58,10 @@ class Map {
 		OSConsole* console;
 
 	private:
-		StatePanel* statePanel;
-		UserCar* userCar;
-		Generator* generator;
+		TimerPanel* timerPanel_;
+		StatePanel* statePanel_;
+		UserCar* userCar_;
+		Generator* generator_;
 
 		void drawBorder();
 		void drawCars();
@@ -63,6 +69,7 @@ class Map {
 		COORD position_;
 		const int width_;
 		const int height_;
+		int startTime_;
 		int status_;
 
 };
