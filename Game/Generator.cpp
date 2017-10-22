@@ -3,7 +3,9 @@
 Generator::Generator() {
 	level_ = 1;
 };
-Generator::~Generator() { };
+Generator::~Generator() { 
+	list_.clear();
+};
 
 void Generator::generate() {
 	for (int i = 0; i < level_; i++) {

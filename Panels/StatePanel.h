@@ -38,5 +38,6 @@ class StatePanel : public Panel {
 		};
 	private:
 		int textAlign_;
+		int oldSize_;
 		string counter_;
 };

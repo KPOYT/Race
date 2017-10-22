@@ -6,6 +6,7 @@ Game::Game(){
 };
 
 Game::~Game(){
+	delete map_;
 	delete rightPanel_;
 };
 

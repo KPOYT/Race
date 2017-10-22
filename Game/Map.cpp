@@ -73,6 +73,13 @@ Map::Map(const int x, const int y, const int width, const int height) :
 	console = OS::GetOSFactory()->GetConsole();
 };
 
+Map::~Map() {
+	userCar->isCrashed(true);
+	delete userCar;
+	delete statePanel;
+	delete generator;
+}
+
 const int Map::getStatus() {
 	return status_;
 };
@@ -101,16 +108,25 @@ void Map::start() {
 	HANDLE hThr2 = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)mapUpdate, (void*)&params, 0, NULL);
 
 	generator->generate();
+
+	statePanel = new StatePanel(position_.X + width_ + 6, position_.Y + (height_ / 2), "");
+
 	int mode;
 	do {
 		if (status_ == Play)
 			status_ = userCar->drive();
 		else if (status_ == Pause) {
+			
+			statePanel->redrawPanel("PAUSE");
 			console->getCodeFromKeyboard();
+			statePanel->redrawPanel("     ");
 			status_ = Play;
 		}
 	} while (status_ != Gameover);
-	
+
+	StateMenu menu;
+	menu.show(userCar->getDistance());
+	console->getCodeFromKeyboard();
 };
 
 void Map::setUserCarPanel(RightPanel* panel) {

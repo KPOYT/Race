@@ -57,9 +57,9 @@ const int UserCar::getFuel() {
 const int UserCar::drive() {
 	do
 	{
-		int code = console->getCodeFromKeyboard();
 		if (!isCrashed())
-		{
+		{	
+			int code = console->getCodeFromKeyboard();
 			if (code == 224)
 			{
 				code = console->getCodeFromKeyboard();
@@ -125,4 +125,6 @@ const int UserCar::drive() {
 			}
 		}
 	} while (!isCrashed());
+
+	return Gameover;
 };

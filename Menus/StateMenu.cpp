@@ -1,24 +1,33 @@
 #include "StateMenu.h"
 
+StateMenu::StateMenu() :Menu() {
+	config = OS::GetOSFactory()->GetConfig();
+};
+
 const int StateMenu::show(
-	 const int playerShips,
-	 const int botShips,
-	 const int time)
+	 const int value)
 {
 	console->setColor(console->Black, console->Black);
 	console->clearConsole();
-			
-	if(playerShips > botShips)
-		console->drawText(15, 7, "You win!", console->Green, console->Black);
-	else
-		console->drawText(15, 7, "You lose!", console->Red, console->Black);
 
-	console->drawText(10, 10, "Your ships left:");
-	console->drawText(28, 10, to_string(playerShips));
-	console->drawText(10, 12, "Bot ships left:");
-	console->drawText(28, 12, to_string(botShips));
-	console->drawText(10, 14, "Time:");
-	console->drawText(28, 14, to_string(time));
+	string title = "GAME OVER";
+	string description = "Your score:";
+	string score = to_string(value);
+	
+	console->drawText(
+		(config->WINDOW_WIDTH - title.length()) / 2,
+		config->WINDOW_HEIGHT / 2 - 3,
+		title);
+
+	console->drawText(
+		(config->WINDOW_WIDTH - description.length()) / 2,
+		config->WINDOW_HEIGHT / 2 - 1,
+		description);
+
+	console->drawText(
+		(config->WINDOW_WIDTH - score.length()) / 2,
+		config->WINDOW_HEIGHT / 2,
+		score);
 
 	return NULL;
 };

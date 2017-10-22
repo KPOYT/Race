@@ -1,7 +1,10 @@
 #include "Race.h"
 
 Race::Race(){};
-Race::~Race(){};
+Race::~Race(){
+	delete mainMenu_;
+	delete exitMenu_;
+};
 
 Race* Race::_instance = 0;
 
@@ -13,24 +16,23 @@ Race* Race::Instance(){
 }
 
 const int Race::startGame(){
-	MainMenu* mainMenu = new MainMenu();
-	ExitMenu* exitMenu = new ExitMenu(33, 10);
-	Game* game;
+	mainMenu_ = new MainMenu();
+	exitMenu_ = new ExitMenu(33, 10);
 
 	int mainMenuChoise;
 	int exitMenuChoise = 0;
 
 	do {
-		mainMenuChoise = mainMenu->show();
+		mainMenuChoise = mainMenu_->show();
 
 		switch (mainMenuChoise) {
 			case 0:
-				game = new Game;
-				game->draw();
-				delete game;
+				game_ = new Game;
+				game_->draw();
+				delete game_;
 			break;
 			case 1:
-				exitMenuChoise = exitMenu->show();
+				exitMenuChoise = exitMenu_->show();
 			break;
 		}
 	}

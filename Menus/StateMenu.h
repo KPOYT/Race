@@ -5,8 +5,10 @@
 
 class StateMenu : public Menu {
 	public:
+		StateMenu();
+
 		const int show(
-			const int playerShips,
-			const int botShips,
-			const int time);
+			const int score);
+	protected:
+		OSConfig* config;
 };

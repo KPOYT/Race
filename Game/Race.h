@@ -23,4 +23,8 @@ class Race {
 		~Race();
 	private:
 		static Race* _instance;
+
+		MainMenu* mainMenu_;
+		ExitMenu* exitMenu_;
+		Game* game_;
 };

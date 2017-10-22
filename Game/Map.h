@@ -6,6 +6,11 @@
 #include "..\ApplicationOS\OS.h"
 #endif
 
+#ifndef STATEMENU_H
+#define STATEMENU_H
+#include "..\Menus\StateMenu.h"
+#endif
+
 #ifndef GENERATOR_H
 #define GENERATOR_H
 #include "Generator.h"
@@ -31,6 +36,8 @@ class Map {
 		
 		Map(const int x, const int y, const int width = 30, const int height = 23);
 
+		~Map();
+
 		void draw();
 		void start();
 		void setUserCarPanel(RightPanel*);
@@ -46,8 +53,7 @@ class Map {
 		OSConsole* console;
 
 	private:
-		vector<Car*> list;
-
+		StatePanel* statePanel;
 		UserCar* userCar;
 		Generator* generator;
 
