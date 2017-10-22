@@ -1,8 +1,8 @@
 #include "Car.h"
 
 Car::Car() :
-	width_(4),
-	height_(4),
+	width_(OSConfig::CAR_WIDTH),
+	height_(OSConfig::CAR_HEIGHT),
 	textColor(OSConsole::White),
 	borderColor(OSConsole::Black)
 {
@@ -13,8 +13,8 @@ Car::Car() :
 };
 
 Car::Car(const COORD pos) :
-	width_(4),
-	height_(4),
+	width_(OSConfig::CAR_WIDTH),
+	height_(OSConfig::CAR_HEIGHT),
 	textColor(OSConsole::White),
 	borderColor(OSConsole::Black)
 {
@@ -26,8 +26,8 @@ Car::Car(const COORD pos) :
 
 Car::Car(const int x,
 	const int y) :
-	width_(4),
-	height_(4),
+	width_(OSConfig::CAR_WIDTH),
+	height_(OSConfig::CAR_HEIGHT),
 	textColor(OSConsole::White),
 	borderColor(OSConsole::Black)
 {
@@ -52,7 +52,7 @@ void Car::isCrashed(bool value) {
 };
 
 void Car::setSpeed(const int value) {
-	if (value >= 0 && value <= MAX_SPEED)
+	if (value >= 0 && value <= OSConfig::MAX_SPEED)
 		speed_ = value;
 };
 

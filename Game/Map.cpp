@@ -16,18 +16,23 @@ void panelUpdate(void* pParams) {
 	Map* map = ptr->map;
 	int pauseTime = 0;
 	do {
+		if (map->getStatus() != map->Gameover && car->isCrashed())
+			map->setStatus(map->Gameover);
+
 		if (map->getStatus() == map->Play) {
 			int speed = car->getSpeed();
 			int time = clock() / CLOCKS_PER_SEC - ptr->startTime - pauseTime;
-			car->setDistance(speed * 1000 / 60 / 60);
+			float metersInSecond = speed * 1000 / 60 / 60;
+			car->setDistance(metersInSecond);
 			panel->redrawPanel(time);
-			Sleep(1000);
+			Sleep(OSConfig::TIMER_SLEEP);
 		}
 		else if (map->getStatus() == map->Pause) {
 			++pauseTime;
-			Sleep(1000);
+			Sleep(OSConfig::TIMER_SLEEP);
 		}
-	} while (car && !car->isCrashed());
+	} while (map->getStatus() != map->Gameover);
+	ExitThread(0);
 }
 
 void mapUpdate(void* pParams) {
@@ -35,32 +40,36 @@ void mapUpdate(void* pParams) {
 	UserCar* car = ptr->car;
 	Generator* generator = ptr->generator;
 	Map* map = ptr->map;
+	int count = 1;
 	do {
+		if (map->getStatus() != map->Gameover && car->isCrashed())
+			map->setStatus(map->Gameover);
+
 		if (map->getStatus() == map->Play) {
 			int speed = car->getSpeed();
-			static int count = 1;
 
 			generator->checkCars(speed);
 
-			if (car->getDistance() / 300 > count) {
-				count = car->getDistance() / 300;
+			if (car->getDistance() / OSConfig::DISTANCE_TO_LEVEL_UP > count) {
+				count = car->getDistance() / OSConfig::DISTANCE_TO_LEVEL_UP;
 				generator->levelUp();
 				generator->generate();
 			}
 
-			Sleep(100);
+			Sleep(OSConfig::SPEED_SLEEP - car->getSpeed() / 3);
 		}
-	} while (car && !car->isCrashed());
+	} while (map->getStatus() != map->Gameover);
+	ExitThread(0);
 }
 
-Map::Map():
-		width_(30),
-		height_(23)
+Map::Map() :
+	width_(OSConfig::MAP_WIDTH),
+	height_(OSConfig::MAP_HEIGHT)
 {
 	position_ = { 0, 0 };
 	status_ = Play;
 	startTime_ = clock() / CLOCKS_PER_SEC;
-	userCar_ = new UserCar(20, 10);
+	userCar_ = new UserCar(OSConfig::CAR_POSITION_X, OSConfig::CAR_POSITION_Y);
 	timerPanel_ = new TimerPanel(position_.X + width_ + 2, position_.Y + (height_ / 3), "Game time:");
 	console = OS::GetOSFactory()->GetConsole();
 };
@@ -72,7 +81,7 @@ Map::Map(const COORD pos, const int width, const int height) :
 	position_ = pos;
 	status_ = Play;
 	startTime_ = clock() / CLOCKS_PER_SEC;
-	userCar_ = new UserCar(20, 15);
+	userCar_ = new UserCar(OSConfig::CAR_POSITION_X, OSConfig::CAR_POSITION_Y);
 	timerPanel_ = new TimerPanel(position_.X + width_ + 2, position_.Y + (height_ / 3), "Game time:");
 	console = OS::GetOSFactory()->GetConsole();
 };
@@ -84,12 +93,13 @@ Map::Map(const int x, const int y, const int width, const int height) :
 	position_ = { static_cast<SHORT>(x), static_cast<SHORT>(y) };
 	status_ = Play;
 	startTime_ = clock() / CLOCKS_PER_SEC;
-	userCar_ = new UserCar(20, 15);
+	userCar_ = new UserCar(OSConfig::CAR_POSITION_X, OSConfig::CAR_POSITION_Y);
 	timerPanel_ = new TimerPanel(position_.X + width_ + 2, position_.Y + (height_ / 3), "Game time:");
 	console = OS::GetOSFactory()->GetConsole();
 };
 
 Map::~Map() {
+	setStatus(Gameover);
 	userCar_->isCrashed(true);
 	delete userCar_;
 	delete statePanel_;
@@ -99,6 +109,10 @@ Map::~Map() {
 const int Map::getStatus() {
 	return status_;
 };
+
+void Map::setStatus(const int status) {
+	status_ = status;
+}
 
 void Map::draw() {
 	drawBorder();
@@ -122,8 +136,8 @@ void Map::start() {
 	params.startTime = startTime_;
 	params.map = this;
 
-	HANDLE hThr = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)panelUpdate, (void*)&params, 0, NULL);
-	HANDLE hThr2 = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)mapUpdate, (void*)&params, 0, NULL);
+	panelThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)panelUpdate, (void*)&params, 0, NULL);
+	mapThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)mapUpdate, (void*)&params, 0, NULL);
 
 	generator_->generate();
 

@@ -1,7 +1,7 @@
 #include "ExitMenu.h"
 
 ExitMenu::ExitMenu(
-	const string desc):Menu(desc){};
+	const string desc):Menu(OSConfig::EXIT_MENU_X, OSConfig::EXIT_MENU_Y, desc){};
 
 ExitMenu::ExitMenu(
 	const COORD pos, 

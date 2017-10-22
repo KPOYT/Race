@@ -21,7 +21,7 @@ void Generator::checkCars(const int speed) {
 		COORD pos = list_[i]->getPosition();
 		
 		if (list_[i]->getSpeed() < speed) {
-			pos.Y += speed / list_[i]->getSpeed();
+			pos.Y += 1;
 
 			if (pos.Y >= endY_) {
 				removeCar(i);
@@ -32,7 +32,8 @@ void Generator::checkCars(const int speed) {
 				list_[i]->setPosition(pos);
 				list_[i]->redraw();
 			}
-		}
+		} else
+			list_[i]->setSpeed(list_[i]->getSpeed() - 1);
 	};
 };
 
@@ -126,7 +127,7 @@ const int Generator::randomSpeed() {
 		speed = userCar_->getSpeed() - rand() % randLevel;
 		if (speed > 0 && speed < userCar_->getSpeed())
 			isFind = true;
-		else if (userCar_->getSpeed() == 0) {
+		else if (userCar_->getSpeed() <= 2) {
 			speed = 1;
 			isFind = true;
 		}

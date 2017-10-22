@@ -21,6 +21,7 @@ class Menu {
 		virtual void redrawMenu(const int);
 		virtual const int checkKeys(int mode);
 
+
 		OSConsole* console;
 
 		COORD position;

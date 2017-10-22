@@ -18,8 +18,6 @@ class Car {
 
 		~Car();
 
-		const int MAX_SPEED = 200;
-
 		virtual void draw();
 		virtual void redraw();
 		virtual void setSpeed(const int);
@@ -33,6 +31,7 @@ class Car {
 		virtual void isCrashed(bool);
 
 	protected:
+
 		bool crashed;
 
 		OSConsole* console;

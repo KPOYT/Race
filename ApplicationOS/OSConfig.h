@@ -2,17 +2,26 @@ class OSConfig {
 	public:
 		static const int WINDOW_WIDTH = 80;
 		static const int WINDOW_HEIGHT = 25;
-		static const int FIELD_WIDTH = 10;
-		static const int FIELD_HEIGHT = 10;
-		static const int CELL_VIEW_WIDTH = 2;
-		static const int CELL_VIEW_HEIGHT = 2;
-		static const int MAX_SHIPS = 10;
-		static const int MAX_SHIP_SIZE = 4;
-		static const int MIN_BOT_WAITING = 500;
-		static const int MAX_BOT_WAITING = 5000;
 
-		static const int FIELD_VIEW_WIDTH = FIELD_WIDTH * CELL_VIEW_WIDTH + 2;
-		static const int FIELD_VIEW_HEIGHT = FIELD_HEIGHT * CELL_VIEW_HEIGHT + 2;
+		static const int MAP_X = 15;
+		static const int MAP_Y = 1;
+		static const int MAP_WIDTH = 30;
+		static const int MAP_HEIGHT = 23;
+		static const int TIMER_SLEEP = 1000;
+		static const int METERS_IN_SECOND = 1000 / 60 / 60;
+		static const int SPEED_SLEEP = 100;
+		static const int DISTANCE_TO_LEVEL_UP = 300;
 
-		static const int* SHIPS_TYPE();
+		static const int CAR_POSITION_X = 24;
+		static const int CAR_POSITION_Y = 15;
+
+		static const int CAR_WIDTH = 4;
+		static const int CAR_HEIGHT = 4;
+		static const int MAX_SPEED = 200;
+		static const int PROPORTION_FUEL_TO_SPEED = 10;
+
+		static const int RIGHT_PANEL_WIDTH = 20;
+
+		static const int EXIT_MENU_X = 33;
+		static const int EXIT_MENU_Y = 10;
 };

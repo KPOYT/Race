@@ -41,6 +41,7 @@ const BOOL SetConsoleSize(const int width, const int height) {
 }
 
 void main() {
+
 	OSConfig* config = OS::GetOSFactory()->GetConfig();
 	OSConsole* console = OS::GetOSFactory()->GetConsole();
 

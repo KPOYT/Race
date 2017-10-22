@@ -17,7 +17,7 @@ Race* Race::Instance(){
 
 const int Race::startGame(){
 	mainMenu_ = new MainMenu();
-	exitMenu_ = new ExitMenu(33, 10);
+	exitMenu_ = new ExitMenu();
 
 	int mainMenuChoise;
 	int exitMenuChoise = 0;

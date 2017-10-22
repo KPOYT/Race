@@ -37,9 +37,14 @@ class Map {
 	public:
 		Map();
 
-		Map(const COORD pos, const int width = 30, const int height = 23);
+		Map(const COORD pos,
+			const int width = OSConfig::MAP_WIDTH,
+			const int height = OSConfig::MAP_HEIGHT);
 		
-		Map(const int x, const int y, const int width = 30, const int height = 23);
+		Map(const int x, 
+			const int y, 
+			const int width = OSConfig::MAP_WIDTH,
+			const int height = OSConfig::MAP_HEIGHT);
 
 		~Map();
 
@@ -47,6 +52,7 @@ class Map {
 		void start();
 		void setUserCarPanel(RightPanel*);
 		const int getStatus();
+		void setStatus(const int);
 
 		enum MapState
 		{
@@ -56,12 +62,14 @@ class Map {
 		};
 	protected:
 		OSConsole* console;
-
 	private:
 		TimerPanel* timerPanel_;
 		StatePanel* statePanel_;
 		UserCar* userCar_;
 		Generator* generator_;
+
+		HANDLE panelThread;
+		HANDLE mapThread;
 
 		void drawBorder();
 		void drawCars();

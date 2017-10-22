@@ -35,7 +35,7 @@ const void StatePanel::setTextAlign(const int state) {
 
 const int StatePanel::show()
 {  
-	int mode = OSConfig::MAX_SHIPS;
+	int mode = NULL;
 	bool choise = false;
 	
 	switch (textAlign_) {

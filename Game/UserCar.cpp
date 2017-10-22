@@ -31,7 +31,7 @@ void UserCar::setConfines(const int startX, const int endX) {
 void UserCar::setDistance(const float distance) {
 	distance_ += distance;
 
-	setFuel(-(distance / 10));
+	setFuel(-(distance / OSConfig::PROPORTION_FUEL_TO_SPEED));
 
 	panel_->redrawPanel(getDistance(), getSpeed(), getFuel());
 };
