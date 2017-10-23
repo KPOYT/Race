@@ -8,14 +8,14 @@
 #include "WinOSConsole.h"
 #endif // !WINOSCONSOLE_H
 
-#ifndef WINOSCONFIG_H
-#define WINOSCONFIG_H
-#include "WinOSConfig.h"
-#endif // !WINOSCONFIG_H
+#ifndef OSCONFIG_H
+#define OSCONFIG_H
+#include "../OSConfig.h"
+#endif // !OSCONFIG_H
 
 
 class WinOSFactory : public OSFactory{
 	public:
 		virtual WinOSConsole* GetConsole();
-		virtual WinOSConfig* GetConfig();
+		virtual OSConfig* GetConfig();
 };

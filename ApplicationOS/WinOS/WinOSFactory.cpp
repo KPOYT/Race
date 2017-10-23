@@ -4,6 +4,6 @@ WinOSConsole* WinOSFactory::GetConsole() {
 	return WinOSConsole::Instance();
 }
 
-WinOSConfig* WinOSFactory::GetConfig() {
-	return WinOSConfig::Instance();
+OSConfig* WinOSFactory::GetConfig() {
+	return OSConfig::Instance();
 }

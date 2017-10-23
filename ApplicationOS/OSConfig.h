@@ -1,5 +1,7 @@
 class OSConfig {
 	public:
+		static OSConfig* Instance();
+
 		static const int WINDOW_WIDTH = 80;
 		static const int WINDOW_HEIGHT = 25;
 
@@ -24,4 +26,11 @@ class OSConfig {
 
 		static const int EXIT_MENU_X = 33;
 		static const int EXIT_MENU_Y = 10;
+
+	protected:
+		OSConfig();
+		virtual ~OSConfig();
+
+	private:
+		static OSConfig* _instance;
 };
