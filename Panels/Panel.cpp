@@ -19,9 +19,9 @@ Panel::Panel(const int x, const int y, const string desc){
 	console = OS::GetOSFactory()->GetConsole();
 };
 
-const int Panel::show(){ return -1; };
+Panel::~Panel() {};
 
-void Panel::redrawMenu(
+void Panel::redrawPanel(
 			int mode, 
 			int textColor, 
 			int backgroundColor){};

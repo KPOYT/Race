@@ -43,7 +43,7 @@ const int StatePanel::show()
 			console->drawText(position.X, position.Y, description, console->White, console->Black);
 		break;
 		case Center:
-			console->drawText(position.X - (description.length() / 2), position.Y, description, console->White, console->Black);
+			console->drawText(position.X - (static_cast<int> (description.length()) / 2), position.Y, description, console->White, console->Black);
 		break;
 	}
 

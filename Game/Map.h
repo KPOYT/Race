@@ -63,16 +63,16 @@ class Map {
 	protected:
 		OSConsole* console;
 	private:
+		void drawBorder();
+		void drawCars();
+
 		TimerPanel* timerPanel_;
 		StatePanel* statePanel_;
 		UserCar* userCar_;
 		Generator* generator_;
 
-		HANDLE panelThread;
-		HANDLE mapThread;
-
-		void drawBorder();
-		void drawCars();
+		HANDLE panelThread_;
+		HANDLE mapThread_;
 
 		COORD position_;
 		const int width_;

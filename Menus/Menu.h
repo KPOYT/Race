@@ -16,6 +16,8 @@ class Menu {
 			 const int y,
 			 const string desc = "Are you sure?");
 
+		virtual ~Menu();
+
 		virtual const int show();
 	protected:
 		virtual void redrawMenu(const int);

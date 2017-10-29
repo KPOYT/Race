@@ -41,9 +41,9 @@ class Car {
 		int textColor;
 		int borderColor;
 
-		COORD position_;
-		COORD oldPosition_;
-		const int width_;
-		const int height_;
-		int speed_;
+		COORD position;
+		COORD oldPosition;
+		const int width;
+		const int height;
+		int speed;
 };

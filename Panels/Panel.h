@@ -11,10 +11,12 @@ class Panel {
 		
 		Panel(const int x, const int y, const string desc);
 
-		virtual const int show();
+		virtual ~Panel();
+
+		virtual const int show() = 0;
 
 	protected:
-		virtual void redrawMenu(
+		virtual void redrawPanel(
 							int mode, 
 							int textColor = OSConsole::White, 
 							int backgroundColor = OSConsole::Black);

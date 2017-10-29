@@ -30,7 +30,7 @@ class Generator {
 		COORD randomPlace();
 		const int randomSpeed();
 
-		vector<Car*> list_;
+		vector<Car*> cars_;
 		UserCar* userCar_;
 
 		int level_;

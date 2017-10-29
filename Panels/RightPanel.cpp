@@ -42,7 +42,7 @@ int const RightPanel::show()
 
 	drawBorder();
 
-	COORD pos = { position.X + width_ * .5, position.Y + height_ * .3 };
+	COORD pos = { static_cast<SHORT>(position.X + width_ * .5), static_cast<SHORT>(position.Y + height_ * .3) };
 
 	distancePanel_ = new StatePanel(pos.X, pos.Y, "Distance:");
 	distancePanel_->setTextAlign(StatePanel::Center);

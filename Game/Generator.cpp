@@ -4,12 +4,12 @@ Generator::Generator() {
 	level_ = 1;
 };
 Generator::~Generator() { 
-	list_.clear();
+	cars_.clear();
 };
 
 void Generator::generate() {
 	for (int i = 0; i < level_; i++) {
-		if (list_.size() < level_) {
+		if (cars_.size() < level_) {
 			addCar();
 		}
 	};
@@ -17,10 +17,10 @@ void Generator::generate() {
 
 void Generator::checkCars(const int speed) {
 	srand(GetTickCount());
-	for (int i = 0; i < list_.size(); i++) {
-		COORD pos = list_[i]->getPosition();
+	for (int i = 0; i < cars_.size(); i++) {
+		COORD pos = cars_[i]->getPosition();
 		
-		if (list_[i]->getSpeed() < speed) {
+		if (cars_[i]->getSpeed() < speed) {
 			pos.Y += 1;
 
 			if (pos.Y >= endY_) {
@@ -29,24 +29,24 @@ void Generator::checkCars(const int speed) {
 			} else if (checkAccident(pos)) {
 				userCar_->isCrashed(true);
 			} else {
-				list_[i]->setPosition(pos);
-				list_[i]->redraw();
+				cars_[i]->setPosition(pos);
+				cars_[i]->redraw();
 			}
 		} else
-			list_[i]->setSpeed(list_[i]->getSpeed() - 1);
+			cars_[i]->setSpeed(cars_[i]->getSpeed() - 1);
 	};
 };
 
 void Generator::addCar() {
 	Car* car = new Car(randomPlace());
 	car->setSpeed(randomSpeed());
-	list_.push_back(car);
+	cars_.push_back(car);
 };
 
 void Generator::removeCar(const int index) {
-	Car* car = list_[index];
-	list_.erase(list_.begin() + index);
-	list_.swap(list_);
+	Car* car = cars_[index];
+	cars_.erase(cars_.begin() + index);
+	cars_.swap(cars_);
 	delete car;
 };
 
@@ -98,9 +98,9 @@ bool Generator::checkPlace(COORD coord) {
 	if (coord.X < startX_ || coord.X > endX_)
 		return false;
 
-	for (int i = 0; i < list_.size(); i++) {
-		COORD pos = list_[i]->getPosition();
-		int width = list_[i]->getWidth();
+	for (int i = 0; i < cars_.size(); i++) {
+		COORD pos = cars_[i]->getPosition();
+		int width = cars_[i]->getWidth();
 
 		if (coord.X <= pos.X + width && coord.X >= pos.X)
 			return false;

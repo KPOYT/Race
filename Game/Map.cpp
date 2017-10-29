@@ -22,7 +22,7 @@ void panelUpdate(void* pParams) {
 		if (map->getStatus() == map->Play) {
 			int speed = car->getSpeed();
 			int time = clock() / CLOCKS_PER_SEC - ptr->startTime - pauseTime;
-			float metersInSecond = speed * 1000 / 60 / 60;
+			float metersInSecond = static_cast<float>(speed) * 1000 / 60 / 60;
 			car->setDistance(metersInSecond);
 			panel->redrawPanel(time);
 			Sleep(OSConfig::TIMER_SLEEP);
@@ -136,15 +136,14 @@ void Map::start() {
 	params.startTime = startTime_;
 	params.map = this;
 
-	panelThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)panelUpdate, (void*)&params, 0, NULL);
-	mapThread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)mapUpdate, (void*)&params, 0, NULL);
+	panelThread_ = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)panelUpdate, (void*)&params, 0, NULL);
+	mapThread_ = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)mapUpdate, (void*)&params, 0, NULL);
 
 	generator_->generate();
 
 	statePanel_ = new StatePanel(position_.X + width_ + 6, position_.Y + (height_ / 2), "");
 	timerPanel_->show();
 
-	int mode;
 	do {
 		if (status_ == Play)
 			status_ = userCar_->drive();
@@ -162,8 +161,8 @@ void Map::start() {
 	console->getCodeFromKeyboard();
 };
 
-void Map::setUserCarPanel(RightPanel* panel) {
-	userCar_->setPanel(panel);
+void Map::setUserCarPanel(RightPanel* rightPanel) {
+	userCar_->setPanel(rightPanel);
 };
 
 void Map::drawBorder() {

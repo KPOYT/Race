@@ -19,8 +19,8 @@ UserCar::UserCar(const int x,
 	fuel_ = MAX_FUEL;
 };
 
-void UserCar::setPanel(RightPanel* panel) {
-	panel_ = panel;
+void UserCar::setPanel(RightPanel* rightPanel) {
+	rightPanel_ = rightPanel;
 };
 
 void UserCar::setConfines(const int startX, const int endX) {
@@ -33,7 +33,7 @@ void UserCar::setDistance(const float distance) {
 
 	setFuel(-(distance / OSConfig::PROPORTION_FUEL_TO_SPEED));
 
-	panel_->redrawPanel(getDistance(), getSpeed(), getFuel());
+	rightPanel_->redrawPanel(getDistance(), getSpeed(), getFuel());
 };
 
 const int UserCar::getDistance() {
@@ -45,7 +45,7 @@ void UserCar::setFuel(const float fuel) {
 
 	if (fuel_ <= 0.0) {
 		fuel_ = 0.0;
-		speed_ = 0;
+		speed = 0;
 		isCrashed(true);
 	}
 };
@@ -67,47 +67,47 @@ const int UserCar::drive() {
 				switch (code)
 				{
 				case 72: {
-					setSpeed(speed_ + 1);
+					setSpeed(speed + 1);
 
-					oldPosition_.X = position_.X;
-					oldPosition_.Y = position_.Y;
+					oldPosition.X = position.X;
+					oldPosition.Y = position.Y;
 
 					break;
 				}
 				case 75: {
-					if (position_.X <= startXConfine_) {
-						position_.X = startXConfine_;
+					if (position.X <= startXConfine_) {
+						position.X = startXConfine_;
 						break;
 					}
 
-					oldPosition_.X = position_.X;
-					oldPosition_.Y = position_.Y;
+					oldPosition.X = position.X;
+					oldPosition.Y = position.Y;
 
-					position_.X--;
+					position.X--;
 					break;
 				}
 				case 77: {
-					if (position_.X >= endXConfine_) {
-						position_.X = endXConfine_;
+					if (position.X >= endXConfine_) {
+						position.X = endXConfine_;
 						break;
 					}
 
-					oldPosition_.X = position_.X;
-					oldPosition_.Y = position_.Y;
+					oldPosition.X = position.X;
+					oldPosition.Y = position.Y;
 
-					position_.X++;
+					position.X++;
 					break;
 				}
 				case 80: {
-					setSpeed(speed_ - 1);
+					setSpeed(speed - 1);
 
-					oldPosition_.X = position_.X;
-					oldPosition_.Y = position_.Y;
+					oldPosition.X = position.X;
+					oldPosition.Y = position.Y;
 					break;
 				}
 				}
 
-				panel_->redrawPanel(getDistance(), getSpeed(), getFuel());
+				rightPanel_->redrawPanel(getDistance(), getSpeed(), getFuel());
 
 				redraw();
 			}

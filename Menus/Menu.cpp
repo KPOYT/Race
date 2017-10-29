@@ -25,6 +25,8 @@ Menu::Menu(const int x,
 	console = OS::GetOSFactory()->GetConsole();
 };
 
+Menu::~Menu() {};
+
 void Menu::redrawMenu(const int){};
 
 const int Menu::checkKeys(int mode){ return mode; };

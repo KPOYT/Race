@@ -33,7 +33,7 @@ class UserCar : public Car {
 	private:
 		const float MAX_FUEL = 1000.0;
 
-		RightPanel* panel_;
+		RightPanel* rightPanel_;
 
 		int startXConfine_;
 		int endXConfine_;
